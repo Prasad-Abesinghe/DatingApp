@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:datingapp/controllers/authentication_controller.dart';
 import 'package:datingapp/widgets/customTextFieldWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,6 +50,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController religionTextEditingController = TextEditingController();
 
   bool showProgressBar = false;
+
+  var authenticationController = AuthenticationController.authcontroller;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,14 +85,64 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
 
               //choose image circle avatar
-              GestureDetector(
-                onTap: () {},
-                child: const CircleAvatar(
-                  radius: 80,
-                  backgroundImage: AssetImage("images/profile.png"),
-                  backgroundColor: Colors.black,
-                ),
+              authenticationController.imageFile == null
+                  ? const CircleAvatar(
+                      radius: 80,
+                      backgroundImage: AssetImage("images/profile.png"),
+                      backgroundColor: Colors.black,
+                    )
+                  : Container(
+                      width: 180,
+                      height: 180,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey,
+                        image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: FileImage(
+                            File(authenticationController.imageFile!.path),
+                          ),
+                        ),
+                      ),
+                    ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () async {
+                      await authenticationController.pickImageFileFromGallery();
+
+                      setState(() {
+                        authenticationController.imageFile;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.image_outlined,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      await authenticationController.captureImageFromCamera();
+
+                      setState(() {
+                        authenticationController.imageFile;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.camera_alt_outlined,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                  ),
+                ],
               ),
+
               const SizedBox(
                 height: 30,
               ),

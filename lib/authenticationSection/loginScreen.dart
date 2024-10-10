@@ -2,7 +2,6 @@ import 'package:datingapp/authenticationSection/registration_screen.dart';
 import 'package:datingapp/widgets/customTextFieldWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -111,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(RegistrationScreen());
+                    Get.to(const RegistrationScreen());
                   },
                   child: const Text(
                     "Create Account",
