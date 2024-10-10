@@ -1,5 +1,8 @@
+import 'package:datingapp/authenticationSection/registration_screen.dart';
 import 'package:datingapp/widgets/customTextFieldWidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -107,7 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(RegistrationScreen());
+                  },
                   child: const Text(
                     "Create Account",
                     style: TextStyle(
@@ -121,11 +126,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             //progree bar
-            showProgressBar == true ? const
-            
-             CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.pink),
-            ) : Container(),
+            showProgressBar == true
+                ? const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.pink),
+                  )
+                : Container(),
+            const SizedBox(
+              height: 20,
+            ),
           ]),
         ),
       ),
